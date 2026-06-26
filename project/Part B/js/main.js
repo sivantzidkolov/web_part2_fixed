@@ -133,11 +133,43 @@ function restoreListPosition() {
   }, 50);
 }
 
+function normalizeSearchText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[־–—-]/g, " ")
+    .replace(/["'`]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getSearchAliases(product) {
+  var typeAliases = {
+    "plants": "צמח צמחים צמחים מיוחדים rare plants ארואידים אראוידים",
+    "nutrients": "דשן דשנים חומרי הזנה הזנה fertilizer nutrients",
+    "led": "תאורה לד led מנורה מנורות תאורת גידול",
+    "potting-mix": "מצע מצעים אדמה מצעי אדמה קוקוס פרלייט שתילה",
+    "growing-accessories": "ציוד אביזרים ציוד נלווה גידול לחות אוהל מאוורר"
+  };
+  var kindAliases = {
+    "Alocasia": "אלוקסיה אלוקסיות alocasia",
+    "Monstera": "מונסטרה מונסטרות monstera",
+    "Advanced Nutrients": "advanced nutrients advanced דשן דשנים",
+    "GHE": "ghe tripart terra aquatica דשן דשנים"
+  };
+  return [typeAliases[product.type], kindAliases[product.kind]].join(" ");
+}
+
 function productMatches(product, query) {
-  query = String(query || "").trim().toLowerCase();
+  query = normalizeSearchText(query);
   if (!query) return true;
-  var text = [product.name, product.type, product.kind, product.category, product.desc].join(" ").toLowerCase();
-  return text.indexOf(query) !== -1;
+  // Search is intentionally based only on the product title/name.
+  // It does not search inside the description, category, type or sub-category.
+  var title = normalizeSearchText(product.name || "");
+  var words = query.split(" ").filter(Boolean);
+  for (var i = 0; i < words.length; i++) {
+    if (title.indexOf(words[i]) === -1) return false;
+  }
+  return true;
 }
 
 function productInCategory(product, type, kind) {
@@ -147,13 +179,24 @@ function productInCategory(product, type, kind) {
 }
 
 function createProductCard(id, product) {
+  var quickOptions = "";
+  if (product.options && product.options.length > 0) {
+    quickOptions += '<label class="quick-option-label">בחרי אופציה</label>';
+    quickOptions += '<select class="quick-option-select" data-card-option="true" aria-label="בחירת אופציה עבור ' + escapeHtml(product.name) + '">';
+    for (var i = 0; i < product.options.length; i++) {
+      quickOptions += '<option value="' + i + '">' + escapeHtml(product.options[i].size) + ' - ' + escapeHtml(product.options[i].price) + '</option>';
+    }
+    quickOptions += '</select>';
+  }
+
   return '' +
     '<div class="product-card" data-product-id="' + escapeHtml(id) + '">' +
       '<a class="product-card-link" data-product-link="true" href="' + buildProductUrl(id) + '">' +
         '<div class="image-box"><img src="' + escapeHtml(imagePath(product.image)) + '" alt="' + escapeHtml(product.name) + '" onerror="this.src=\'' + IMAGE_FALLBACK + '\'"></div>' +
       '</a>' +
       '<h3>' + escapeHtml(product.name) + '</h3>' +
-      '<p class="price">' + escapeHtml(getDisplayPrice(product)) + '</p>' +
+      '<p class="price" data-card-price="true">' + escapeHtml(getDisplayPrice(product)) + '</p>' +
+      quickOptions +
       '<div class="product-card-actions">' +
         '<button type="button" class="btn add-card-btn" data-add-id="' + escapeHtml(id) + '">הוספה לסל</button>' +
         '<a class="secondary-btn" data-product-link="true" href="' + buildProductUrl(id) + '">פרטים</a>' +
@@ -349,42 +392,74 @@ function getCurrentCategoryFilter() {
 
 function renderCategoryPage(query) {
   var grid = document.getElementById("productGrid");
-  if (!grid || typeof products === "undefined") return;
+  if (!grid || typeof products === "undefined") return 0;
   var filter = getCurrentCategoryFilter();
   var title = document.getElementById("categoryTitle");
   var subtitle = document.getElementById("categorySubtitle");
+  var summary = document.getElementById("categorySearchSummary");
+  query = String(query || "").trim();
   if (title) title.innerText = filter.title;
-  if (subtitle) subtitle.innerText = filter.title;
+  if (subtitle) subtitle.innerText = query ? 'תוצאות עבור "' + query + '"' : filter.title;
   renderSubcategoryOptions(filter);
 
   grid.innerHTML = "";
   var count = 0;
   for (var id in products) {
     var product = products[id];
-    if (productInCategory(product, filter.type, filter.kind) && productMatches(product, query || "")) {
+    if (productInCategory(product, filter.type, filter.kind) && productMatches(product, query)) {
       grid.innerHTML += createProductCard(id, product);
       count++;
     }
   }
-  if (count === 0) grid.innerHTML = '<div class="empty">לא נמצאו מוצרים מתאימים.</div>';
+  if (summary) {
+    summary.innerText = query ? ('נמצאו ' + count + ' מוצרים מתאימים בתוך הקטגוריה.') : '';
+  }
+  if (count === 0) grid.innerHTML = '<div class="empty">לא נמצאו מוצרים מתאימים לחיפוש הזה.</div>';
+  return count;
+}
+
+function resetCatalogSearch() {
+  var searchInput = document.getElementById("catalogSearch");
+  var searchSection = document.getElementById("catalogSearchSection");
+  var featuredSection = document.getElementById("featuredSection");
+  var dealsSection = document.getElementById("dealsSection");
+  var results = document.getElementById("catalogResults");
+  var summary = document.getElementById("catalogSearchSummary");
+  var categorySummary = document.getElementById("categorySearchSummary");
+  var categorySubtitle = document.getElementById("categorySubtitle");
+  if (searchInput) searchInput.value = "";
+  if (searchSection) searchSection.classList.add("hidden");
+  if (featuredSection) featuredSection.classList.remove("hidden");
+  if (dealsSection) dealsSection.classList.remove("hidden");
+  if (results) results.innerHTML = "";
+  if (summary) summary.innerText = "";
+  if (categorySummary) categorySummary.innerText = "";
+  if (categorySubtitle) categorySubtitle.innerText = getCurrentCategoryFilter().title;
+  renderCategoryPage("");
 }
 
 function filterCurrentList(query) {
   var results = document.getElementById("catalogResults");
+  query = String(query || "").trim();
+
+  if (!query) {
+    resetCatalogSearch();
+    showToast("כתבי מילת חיפוש ואז לחצי על חיפוש");
+    return;
+  }
+
   if (results) {
     var featuredSection = document.getElementById("featuredSection");
     var dealsSection = document.getElementById("dealsSection");
     var searchSection = document.getElementById("catalogSearchSection");
-    query = String(query || "").trim();
-    if (!query) {
-      if (searchSection) searchSection.classList.add("hidden");
-      if (featuredSection) featuredSection.classList.remove("hidden");
-      if (dealsSection) dealsSection.classList.remove("hidden");
-      return;
-    }
+    var title = document.getElementById("catalogSearchTitle");
+    var summary = document.getElementById("catalogSearchSummary");
+
     if (searchSection) searchSection.classList.remove("hidden");
     if (featuredSection) featuredSection.classList.add("hidden");
     if (dealsSection) dealsSection.classList.add("hidden");
+    if (title) title.innerText = 'תוצאות עבור "' + query + '"';
+
     results.innerHTML = "";
     var count = 0;
     for (var id in products) {
@@ -393,10 +468,15 @@ function filterCurrentList(query) {
         count++;
       }
     }
-    if (count === 0) results.innerHTML = '<div class="empty">לא נמצאו מוצרים לחיפוש הזה.</div>';
+    if (summary) summary.innerText = 'נמצאו ' + count + ' מוצרים מתאימים.';
+    if (count === 0) results.innerHTML = '<div class="empty">לא נמצאו מוצרים בשם הזה. נסי לחפש חלק משם מוצר, למשל Monstera, GHE, Sensi או קוקוס.</div>';
+    if (searchSection) searchSection.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
-  renderCategoryPage(query);
+
+  var categoryCount = renderCategoryPage(query);
+  var grid = document.getElementById("productGrid");
+  if (grid) grid.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function initCatalogEvents() {
@@ -415,11 +495,17 @@ function initCatalogEvents() {
 
   var searchInput = document.getElementById("catalogSearch");
   var searchBtn = document.getElementById("catalogSearchBtn");
+  var clearBtn = document.getElementById("catalogClearBtn");
   if (searchInput) {
-    searchInput.addEventListener("input", function () { filterCurrentList(searchInput.value); });
-    searchInput.addEventListener("keydown", function (event) { if (event.key === "Enter") { event.preventDefault(); filterCurrentList(searchInput.value); } });
+    searchInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        filterCurrentList(searchInput.value);
+      }
+    });
   }
   if (searchBtn) searchBtn.addEventListener("click", function () { filterCurrentList(searchInput ? searchInput.value : ""); });
+  if (clearBtn) clearBtn.addEventListener("click", function () { resetCatalogSearch(); if (searchInput) searchInput.focus(); });
 
   document.addEventListener("click", function (event) {
     var toggleButton = event.target.closest("[data-toggle-group]");
@@ -430,10 +516,26 @@ function initCatalogEvents() {
       return;
     }
     if (event.target.closest("[data-product-link]")) rememberListPosition();
+    var optionSelect = event.target.closest("[data-card-option]");
+    if (optionSelect) {
+      var cardForPrice = optionSelect.closest(".product-card");
+      var productIdForPrice = cardForPrice ? cardForPrice.getAttribute("data-product-id") : "";
+      var priceEl = cardForPrice ? cardForPrice.querySelector("[data-card-price]") : null;
+      var productForPrice = productIdForPrice && products ? products[productIdForPrice] : null;
+      if (priceEl && productForPrice && productForPrice.options && productForPrice.options[Number(optionSelect.value)]) {
+        priceEl.innerText = productForPrice.options[Number(optionSelect.value)].price;
+      }
+      return;
+    }
+
     var addButton = event.target.closest("[data-add-id]");
     if (addButton) {
       event.preventDefault();
-      addProductToCart(addButton.getAttribute("data-add-id"), 1, 0);
+      var idToAdd = addButton.getAttribute("data-add-id");
+      var card = addButton.closest(".product-card");
+      var select = card ? card.querySelector("[data-card-option]") : null;
+      var selectedOptionIndex = select ? Number(select.value || 0) : 0;
+      addProductToCart(idToAdd, 1, selectedOptionIndex);
     }
   });
 }
@@ -601,7 +703,7 @@ function renderOrders(tab) {
         html += '<div class="order-product-row"><img src="' + escapeHtml(imagePath(items[j].image)) + '" alt="' + escapeHtml(items[j].name) + '" onerror="this.src=\'' + IMAGE_FALLBACK + '\'"><div><strong>' + escapeHtml(items[j].name) + '</strong><span>' + escapeHtml(items[j].option || "") + ' × ' + escapeHtml(items[j].quantity) + '</span></div></div>';
       }
       html += '</div><div class="order-total">סה״כ: ' + formatPrice(order.totals ? order.totals.final : 0) + '</div>' +
-        '<p class="muted">ההזמנה שולמה ונשמרה. לכן אין אפשרות להוסיף או להסיר מוצרים אחרי התשלום.</p>' +
+        '<p class="muted">ההזמנה נשמרה לאחר התשלום והיא מוצגת כאן לצפייה ומעקב. שינוי פריטים מתבצע לפני התשלום בעגלת הקניות.</p>' +
       '</article>';
     }
   }

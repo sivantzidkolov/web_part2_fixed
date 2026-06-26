@@ -33,13 +33,15 @@
   <h1>קטלוג</h1>
   <p>בחרי קטגוריה ראשית. בקטגוריות עם תתי־קטגוריות, לחיצה תפתח אפשרויות נוספות.</p>
   <div class="search-box">
-    <input type="text" id="catalogSearch" placeholder="חיפוש לפי שם, סוג או קטגוריה...">
+    <input type="text" id="catalogSearch" placeholder="הקלידו חלק משם המוצר">
     <button type="button" id="catalogSearchBtn">חיפוש</button>
+    <button type="button" id="catalogClearBtn" class="secondary-btn">ניקוי</button>
   </div>
 </section>
 <div class="catalog-menu catalog-menu-grouped" id="catalogMenu"></div>
 <section id="catalogSearchSection" class="hidden">
-  <h2>תוצאות חיפוש</h2>
+  <h2 id="catalogSearchTitle">תוצאות חיפוש</h2>
+  <p id="catalogSearchSummary" class="search-summary"></p>
   <div class="product-grid" id="catalogResults"></div>
 </section>
 <section id="featuredSection">

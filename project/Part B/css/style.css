@@ -214,3 +214,20 @@ footer a { color: white; text-decoration: none; }
 .categories-section { padding-top: 34px; }
 .personal-section { padding-top: 24px; padding-bottom: 24px; }
 .cta { padding-top: 30px; padding-bottom: 30px; }
+
+/* Search results feedback */
+.search-summary { text-align: center; color: var(--muted); margin: 10px auto 0; font-weight: bold; }
+.search-box .secondary-btn { padding: 10px 14px; }
+
+/* Quick add option selector */
+.quick-option-label {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+.quick-option-select {
+  width: 100%;
+  min-height: 39px;
+  margin-bottom: 4px;
+  background: #FAFCF7;
+}
