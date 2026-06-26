@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הרשמה | FLORA Collective</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-box">
+    <img src="picture/logo.jpg" alt="FLORA Collective">
+    <h1>הרשמה</h1>
+    <form id="registerForm" novalidate>
+      <div class="form-row"><label for="regName">שם מלא</label><input type="text" id="regName"><span class="error" data-error-for="regName"></span></div>
+      <div class="form-row"><label for="regEmail">אימייל</label><input type="email" id="regEmail"><span class="error" data-error-for="regEmail"></span></div>
+      <div class="form-row"><label for="regPassword">סיסמה</label><input type="password" id="regPassword"><span class="error" data-error-for="regPassword"></span></div>
+      <div class="form-row"><label for="regConfirm">אימות סיסמה</label><input type="password" id="regConfirm"><span class="error" data-error-for="regConfirm"></span></div>
+      <button type="submit" class="btn full-btn">צור חשבון</button>
+      <div class="success-message" id="registerSuccess"></div>
+    </form>
+    <a href="login.html">כבר יש לך חשבון? התחבר</a>
+    <a class="back-home" href="home-page.html">← חזרה לדף הבית</a>
+
+  </div>
+</div>
+<script src="js/validations.js"></script>
+</body>
+</html>

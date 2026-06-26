@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אזור אישי | FLORA Collective</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="top-bar">
+    <a class="logo" href="home-page.html">
+      <img src="picture/logo.jpg" alt="FLORA Collective">
+      <span>FLORA Collective</span>
+    </a>
+    <div class="header-icons">
+      <div class="cart-icon-box">
+        <button type="button" class="cart-link cart-open-btn" id="openMiniCart" title="עגלת קניות">🛒<span id="cartCount">0</span></button>
+      </div>
+      <a href="account.html" id="accountLink" class="account-link">👤 התחברות / הרשמה</a>
+    </div>
+  </div>
+  <nav>
+    <a href="home-page.html">בית</a>
+    <a href="catlog.html">קטלוג</a>
+    <a href="orders.html">ההזמנות שלי</a>
+    <a href="contact.html">צור קשר</a>
+  </nav>
+</header>
+
+<section class="page-title"><h1>אזור אישי</h1></section>
+
+<section class="account-section guest-only">
+  <h2>החשבון מנותק כרגע</h2>
+  <p class="section-text">
+    כדי לצפות בהזמנות האישיות שלך, אפשר להתחבר או להירשם.
+  </p>
+  <div class="cards small-cards account-actions">
+    <div class="card">
+      <div class="icon">🔑</div>
+      <h3>כבר יש לך חשבון?</h3>
+      <p>התחברי כדי להגיע לאזור האישי ולראות הזמנות שנשמרו בדפדפן.</p>
+      <a href="login.html" class="btn">התחברות</a>
+    </div>
+    <div class="card">
+      <div class="icon">📝</div>
+      <h3>משתמש חדש</h3>
+      <p>הרשמה קצרה עם שם, אימייל וסיסמה לצורך הדגמת האתר.</p>
+      <a href="register.html" class="btn secondary-btn">הרשמה</a>
+    </div>
+  </div>
+</section>
+
+<section class="account-section user-only hidden">
+  <h2 id="accountHello">האזור האישי שלך</h2>
+  <p class="section-text" id="accountDetails">כאן אפשר לראות מידע בסיסי על החשבון וההזמנות.</p>
+  <div class="cards small-cards account-actions">
+    <div class="card">
+      <div class="icon">📦</div>
+      <h3>ההזמנות שלי</h3>
+      <p id="accountOrdersText">אין הזמנות פתוחות כרגע.</p>
+      <a href="orders.html" class="btn">מעבר להזמנות</a>
+    </div>
+    <div class="card">
+      <div class="icon">🌿</div>
+      <h3>המשך קנייה</h3>
+      <p>אפשר לחזור לקטלוג ולהוסיף מוצרים חדשים לעגלה.</p>
+      <a href="catlog.html" class="btn secondary-btn">לקטלוג</a>
+    </div>
+  </div>
+  <div class="center-actions">
+    <button type="button" id="logoutBtn" class="danger-btn">התנתקות</button>
+  </div>
+</section>
+
+<div class="info-strip">
+  <div>🚚 משלוחים מהירים</div>
+  <div>🛡️ ליווי אישי בגידול</div>
+  <div>🌱 צמחים נדירים בלבד</div>
+</div>
+<footer>
+  <div>
+    <h3>FLORA Collective</h3>
+    <p>צמחי בית נדירים, ארואידים, מונסטרות וציוד גידול איכותי.</p>
+  </div>
+  <div>
+    <h3>ניווט</h3>
+    <p><a href="catlog.html">קטלוג</a></p>
+    <p><a href="cart.html">עגלת קניות</a></p>
+    <p><a href="orders.html">ההזמנות שלי</a></p>
+    <p><a href="contact.html">צור קשר</a></p>
+  </div>
+  <div>
+    <h3>יצירת קשר</h3>
+    <p>טלפון: 053-2254042</p>
+    <p>אינסטגרם: flora_collective</p>
+  </div>
+</footer>
+<div class="mini-cart" id="miniCart" aria-hidden="true">
+  <div class="mini-cart-panel">
+    <div class="mini-cart-head">
+      <h3>עגלת הקניות</h3>
+      <button type="button" id="closeMiniCart" class="icon-btn" aria-label="סגירת עגלה">×</button>
+    </div>
+    <div id="miniCartItems"></div>
+    <div class="mini-cart-total" id="miniCartTotal"></div>
+    <div class="mini-cart-actions">
+      <a href="cart.html" class="btn">מעבר לעגלה</a>
+      <button type="button" class="secondary-btn" id="continueShoppingBtn">המשך קנייה</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+</div>
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

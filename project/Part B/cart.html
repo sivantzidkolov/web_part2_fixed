@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>עגלת קניות | FLORA Collective</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page">
+<header>
+  <div class="top-bar">
+    <a class="logo" href="home-page.html">
+      <img src="picture/logo.jpg" alt="FLORA Collective">
+      <span>FLORA Collective</span>
+    </a>
+    <div class="header-icons">
+      <div class="cart-icon-box">
+        <button type="button" class="cart-link cart-open-btn" id="openMiniCart" title="עגלת קניות">🛒<span id="cartCount">0</span></button>
+      </div>
+      <a href="account.html" id="accountLink" class="account-link">👤 התחברות / הרשמה</a>
+    </div>
+  </div>
+  <nav>
+    <a href="home-page.html">בית</a>
+    <a href="catlog.html">קטלוג</a>
+    <a href="orders.html">ההזמנות שלי</a>
+    <a href="contact.html">צור קשר</a>
+  </nav>
+</header>
+
+<section>
+  <h1 class="center-title">עגלת קניות 🛒</h1>
+  <p class="section-text">אפשר לשנות כמויות ולהסיר מוצרים בלי לעבור עמוד.</p>
+  <div id="cartContainer"></div>
+  <div class="total" id="totalPrice"></div>
+  <div class="actions">
+    <button type="button" id="clearCartBtn" class="danger-btn">נקה עגלה</button>
+    <a href="catlog.html" class="btn secondary-btn">המשך קנייה</a>
+  </div>
+  <div class="form-box">
+    <h2>פרטים למשלוח ותשלום</h2>
+    <form id="checkoutForm" novalidate>
+      <div class="form-grid">
+        <div class="form-row"><label for="fullName">שם מלא *</label><input type="text" id="fullName"><span class="error" data-error-for="fullName"></span></div>
+        <div class="form-row"><label for="phone">טלפון *</label><input type="tel" id="phone"><span class="error" data-error-for="phone"></span></div>
+        <div class="form-row"><label for="email">אימייל *</label><input type="email" id="email"><span class="error" data-error-for="email"></span></div>
+        <div class="form-row"><label for="city">עיר *</label><input type="text" id="city"><span class="error" data-error-for="city"></span></div>
+        <div class="form-row"><label for="address">רחוב ומספר בית *</label><input type="text" id="address"><span class="error" data-error-for="address"></span></div>
+        <div class="form-row"><label for="zip">מיקוד</label><input type="text" id="zip"><span class="error" data-error-for="zip"></span></div>
+        <div class="form-row"><label for="shipping">שיטת משלוח *</label><select id="shipping"><option value="">בחרי משלוח</option><option value="איסוף עצמי">איסוף עצמי</option><option value="שליח עד הבית">שליח עד הבית</option></select><span class="error" data-error-for="shipping"></span></div>
+        <div class="form-row"><label for="payment">אמצעי תשלום *</label><select id="payment"><option value="">בחרי תשלום</option><option value="אשראי">אשראי</option><option value="ביט">ביט</option><option value="PayPal">PayPal</option><option value="מזומן באיסוף">מזומן באיסוף</option></select><span class="error" data-error-for="payment"></span></div>
+        <div class="form-row full"><label for="notes">הערות להזמנה</label><textarea id="notes" placeholder="קומה, דירה, הערות לשליח וכו׳"></textarea></div>
+      </div>
+      <button type="submit" class="btn full-btn" id="checkoutBtn">תשלום וסיום הזמנה</button>
+      <div class="success-message" id="cartSuccessMsg"></div>
+    </form>
+  </div>
+</section>
+
+<div class="info-strip">
+  <div>🚚 משלוחים מהירים</div>
+  <div>🛡️ ליווי אישי בגידול</div>
+  <div>🌱 צמחים נדירים בלבד</div>
+</div>
+<footer>
+  <div>
+    <h3>FLORA Collective</h3>
+    <p>צמחי בית נדירים, ארואידים, מונסטרות וציוד גידול איכותי.</p>
+  </div>
+  <div>
+    <h3>ניווט</h3>
+    <p><a href="catlog.html">קטלוג</a></p>
+    <p><a href="cart.html">עגלת קניות</a></p>
+    <p><a href="orders.html">ההזמנות שלי</a></p>
+    <p><a href="contact.html">צור קשר</a></p>
+  </div>
+  <div>
+    <h3>יצירת קשר</h3>
+    <p>טלפון: 053-2254042</p>
+    <p>אינסטגרם: flora_collective</p>
+  </div>
+</footer>
+<div class="mini-cart" id="miniCart" aria-hidden="true">
+  <div class="mini-cart-panel">
+    <div class="mini-cart-head">
+      <h3>עגלת הקניות</h3>
+      <button type="button" id="closeMiniCart" class="icon-btn" aria-label="סגירת עגלה">×</button>
+    </div>
+    <div id="miniCartItems"></div>
+    <div class="mini-cart-total" id="miniCartTotal"></div>
+    <div class="mini-cart-actions">
+      <a href="cart.html" class="btn">מעבר לעגלה</a>
+      <button type="button" class="secondary-btn" id="continueShoppingBtn">המשך קנייה</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+</div>
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+<script src="js/validations.js"></script>
+</body>
+</html>

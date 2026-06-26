@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>התחברות | FLORA Collective</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-box">
+    <img src="picture/logo.jpg" alt="FLORA Collective">
+    <h1>התחברות</h1>
+    <p>ברוכים הבאים ל־FLORA Collective</p>
+    <form id="loginForm" novalidate>
+      <div class="form-row"><label for="loginEmail">אימייל</label><input type="email" id="loginEmail" placeholder="הכנס אימייל"><span class="error" data-error-for="loginEmail"></span></div>
+      <div class="form-row"><label for="loginPassword">סיסמה</label><input type="password" id="loginPassword" placeholder="הכנס סיסמה"><span class="error" data-error-for="loginPassword"></span></div>
+      <button type="submit" class="btn full-btn">התחברות</button>
+      <div class="success-message" id="loginSuccess"></div>
+    </form>
+    <div class="links"><a href="forgot.html">שכחת סיסמה?</a> <a href="register.html">הרשמה</a></div>
+    <a class="back-home" href="home-page.html">← חזרה לדף הבית</a>
+  </div>
+</div>
+<script src="js/validations.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>שחזור סיסמה | FLORA Collective</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-box">
+    <img src="picture/logo.jpg" alt="FLORA Collective">
+    <h1>שחזור סיסמה</h1>
+    <p>הכנס/י את האימייל שלך וישלח אליך מייל לאיפוס הסיסמא  </p>
+    <form id="forgotForm" novalidate>
+      <div class="form-row"><label for="forgotEmail">אימייל</label><input type="email" id="forgotEmail"><span class="error" data-error-for="forgotEmail"></span></div>
+      <button type="submit" class="btn full-btn">שלח קישור</button>
+      <div class="success-message" id="forgotSuccess"></div>
+    </form>
+    <a href="login.html">חזרה להתחברות</a>
+    <a class="back-home" href="home-page.html">← חזרה לדף הבית</a>
+
+  </div>
+</div>
+<script src="js/validations.js"></script>
+</body>
+</html>

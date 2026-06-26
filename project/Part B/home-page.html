@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>דף הבית | FLORA Collective</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page">
+<header>
+  <div class="top-bar">
+    <a class="logo" href="home-page.html">
+      <img src="picture/logo.jpg" alt="FLORA Collective">
+      <span>FLORA Collective</span>
+    </a>
+    <div class="header-icons">
+      <div class="cart-icon-box">
+        <button type="button" class="cart-link cart-open-btn" id="openMiniCart" title="עגלת קניות">🛒<span id="cartCount">0</span></button>
+      </div>
+      <a href="account.html" id="accountLink" class="account-link">👤 התחברות / הרשמה</a>
+    </div>
+  </div>
+  <nav>
+    <a href="home-page.html">בית</a>
+    <a href="catlog.html">קטלוג</a>
+    <a href="orders.html">ההזמנות שלי</a>
+    <a href="contact.html">צור קשר</a>
+  </nav>
+</header>
+
+<section class="home-hero">
+  <div class="floating-leaf leaf1">🌿</div>
+  <div class="floating-leaf leaf2">🍃</div>
+
+  <div class="hero-content">
+    <h1>FLORA Collective</h1>
+    <p>
+      נדירות, מומחיות, גידול
+      <br/>
+      Rare plant collective platform for more expertise
+    </p>
+    <a href="catlog.html" class="btn hero-btn">כניסה לקטלוג</a>
+  </div>
+</section>
+
+
+<section class="personal-section guest-only">
+  <h2>אזור אישי</h2>
+  <p class="section-text">
+    התחברות לאתר מאפשרת לצפות בהזמנות שביצעת, לשמור פרטים בסיסיים ולנהל מעקב אחרי הזמנות עתידיות.
+  </p>
+  <div class="center-actions">
+    <a href="login.html" class="btn">התחברות</a>
+    <a href="register.html" class="btn secondary-btn">הרשמה</a>
+  </div>
+</section>
+
+<section class="personal-section user-only hidden">
+  <h2 id="helloUser">האזור האישי שלך</h2>
+  <p class="section-text">כאן אפשר לעקוב אחרי ההזמנות שלך ולחזור בקלות לקטלוג.</p>
+  <div class="cards small-cards">
+    <div class="card">
+      <div class="icon">📋</div>
+      <h3>ההזמנות שלי</h3>
+      <p id="homeOrdersText">אין הזמנות פתוחות כרגע.</p>
+      <a href="orders.html" class="small-link">מעבר לניהול הזמנות</a>
+    </div>
+    <div class="card">
+      <div class="icon">🌱</div>
+      <h3>המשך קנייה</h3>
+      <p>אפשר לחזור לקטלוג ולהוסיף מוצרים חדשים לעגלה.</p>
+      <a href="catlog.html" class="small-link">לקטלוג</a>
+    </div>
+  </div>
+</section>
+
+<section class="categories-section">
+  <h2>קטגוריות מרכזיות</h2>
+  <div class="cards">
+    <div class="card category-card"><div class="icon">🌿</div><h3><a href="category.html?type=plants&title=צמחים מיוחדים">צמחים</a></h3><p>מונסטרות ואלוקסיות מיוחדות לבית.</p></div>
+    <div class="card category-card"><div class="icon">💧</div><h3><a href="category.html?type=nutrients&title=דשנים">דשנים</a></h3><p>דשנים ותוספים לגידול איכותי.</p></div>
+    <div class="card category-card"><div class="icon">💡</div><h3><a href="category.html?type=led&title=תאורת גידול">תאורת גידול</a></h3><p>פתרונות תאורה לצמחים בבית.</p></div>
+    <div class="card category-card"><div class="icon">🌱</div><h3><a href="category.html?type=potting-mix&title=מצעי אדמה">מצעי אדמה</a></h3><p>מצעים ותערובות שתילה לגידול בריא.</p></div>
+  </div>
+</section>
+
+
+<section class="cta">
+  <h2>לא בטוחים איזה צמח מתאים לכם?</h2>
+  <p>ספרו לנו איפה הצמח עומד להיות, כמה אור יש בחדר וכמה ניסיון יש לכם — ונעזור לכם לבחור.</p>
+  <a href="contact.html" class="btn">התייעצות איתנו</a>
+</section>
+
+<div class="info-strip">
+  <div>🚚 משלוחים מהירים</div>
+  <div>🛡️ ליווי אישי בגידול</div>
+  <div>🌱 צמחים נדירים בלבד</div>
+</div>
+<footer>
+  <div>
+    <h3>FLORA Collective</h3>
+    <p>צמחי בית נדירים, ארואידים, מונסטרות וציוד גידול איכותי.</p>
+  </div>
+  <div>
+    <h3>ניווט</h3>
+    <p><a href="catlog.html">קטלוג</a></p>
+    <p><a href="cart.html">עגלת קניות</a></p>
+    <p><a href="orders.html">ההזמנות שלי</a></p>
+    <p><a href="contact.html">צור קשר</a></p>
+  </div>
+  <div>
+    <h3>יצירת קשר</h3>
+    <p>טלפון: 053-2254042</p>
+    <p>אינסטגרם: flora_collective</p>
+  </div>
+</footer>
+<div class="mini-cart" id="miniCart" aria-hidden="true">
+  <div class="mini-cart-panel">
+    <div class="mini-cart-head">
+      <h3>עגלת הקניות</h3>
+      <button type="button" id="closeMiniCart" class="icon-btn" aria-label="סגירת עגלה">×</button>
+    </div>
+    <div id="miniCartItems"></div>
+    <div class="mini-cart-total" id="miniCartTotal"></div>
+    <div class="mini-cart-actions">
+      <a href="cart.html" class="btn">מעבר לעגלה</a>
+      <button type="button" class="secondary-btn" id="continueShoppingBtn">המשך קנייה</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+</div>
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
